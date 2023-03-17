@@ -68,13 +68,6 @@ export default MessagesScreen = () => (
     </Stack.Navigator>
 );
 
-// export default MessagesScreen = () => (
-//   <Layout style={styles.container}>
-//     <Header iconName='message-square-outline' title='Messages'/>
-//     <Message name = 'Richard' course='CS 107' preview='heap allocator is beating my a**'/>
-//   </Layout>
-// );
-
 const styles = StyleSheet.create({
     container: {
       //flex: 1,
@@ -82,23 +75,3 @@ const styles = StyleSheet.create({
       //alignItems: "center",
     }
 });
-
-// import { StyleSheet, Dimensions } from 'react-native';
-// import { WebView } from "react-native-webview";
-// import { Themes } from "../assets/Themes";
-
-// const windowHeight = Dimensions.get("window").height;
-
-// const DetailsScreen = ({ route }) => {
-//     return (
-//         <WebView source={{ uri: route.params.url}} />
-//     )
-// }
-
-// export default DetailsScreen;
-
-// const styles = StyleSheet.create({
-//     Background: {
-//         backgroundColor: Themes.colors.background
-//     }
-// });
