@@ -7,15 +7,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Header from "../components/Header";
 import MessageList from "../components/MessageList";
 import { GiftedChat } from 'react-native-gifted-chat'
+import { supabase } from '../env/Supabase';
 
-const data = [
-    { name: 'Tony', course: 'ME 210', preview: 'stuck on 3rd problem but got first two' },
-    { name: 'Michael', course: 'CS 107', preview: 'stuck on 3rd problem' },
-    { name: 'Aaron', course: 'AA 247A', preview: 'stuck on 3rd problem but got first two' },
-    { name: 'Poom', course: 'CS 106B', preview: 'stuck on 3rd problem but got first two' },
-    { name: 'Temesgen', course: 'CS 106A', preview: 'stuck on 3rd problem but got first two' },
-    { name: 'Emily', course: 'ME 310C', preview: "i can't find my teammates" },
-];
+// const data = [
+//     { name: 'Tony', course: 'ME 210', preview: 'stuck on 3rd problem but got first two' },
+//     { name: 'Michael', course: 'CS 107', preview: 'stuck on 3rd problem' },
+//     { name: 'Aaron', course: 'AA 247A', preview: 'stuck on 3rd problem but got first two' },
+//     { name: 'Poom', course: 'CS 106B', preview: 'stuck on 3rd problem but got first two' },
+//     { name: 'Temesgen', course: 'CS 106A', preview: 'stuck on 3rd problem but got first two' },
+//     { name: 'Emily', course: 'ME 310C', preview: "i can't find my teammates" },
+// ];
 
 
 const Stack = createStackNavigator();
@@ -53,6 +54,24 @@ const Chat = ({route, navigation}) => {
 };
 
 const Message = ({navigation}) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const { data: messages, error } = await supabase
+        .from('Messages')
+        .select('*')
+      if (error) {
+        console.log(error);
+      } else {
+        setData(messages);
+      }
+    };
+    fetchMessages();
+  }, []);
+
+  console.log(data)
+
   return (
     <Layout style={styles.container}>
         <Header iconName='message-square-outline' title='Messages'/>

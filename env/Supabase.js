@@ -1,4 +1,3 @@
-// supabase password: 7UrtwtncJv1AH12f
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 import 'react-native-url-polyfill/auto'

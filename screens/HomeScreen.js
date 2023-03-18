@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import PostList from "../components/PostList";
 import { createStackNavigator } from '@react-navigation/stack';
 import { GiftedChat } from 'react-native-gifted-chat'
+import { supabase } from '../env/Supabase';
 
 const Stack = createStackNavigator();
 
@@ -50,6 +51,24 @@ const Chat = ({route, navigation}) => {
 };
 
 const Home = ({navigation}) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const { data: posts, error } = await supabase
+        .from('Posts')
+        .select('course, caption')
+      if (error) {
+        console.log(error);
+      } else {
+        setData(posts);
+      }
+    };
+    fetchPosts();
+  }, []);
+
+  console.log(data)
+
   return (
     <Layout style={styles.container}>
       <UploadPostButton navigation={navigation}/>
@@ -60,20 +79,20 @@ const Home = ({navigation}) => {
   );
 };
 
-const data = [
-  { course: 'CS 107', caption: 'stuck on 3rd problem but got first two' },
-  { course: 'CS 106B', caption: 'HELP!!! stuck on 3rd problem but got first two' },
-  { course: 'CS 161', caption: 'stuck on 3rd problem but got first two' },
-  { course: 'CS 229', caption: 'HELP!!! stuck on 3rd problem but got first two' },
-  { course: 'AA 247A', caption: 'stuck on 3rd problem but got first two' },
-  { course: 'AA 228', caption: 'stuck on 3rd problem but got first two' },
-  { course: 'CS 107', caption: 'stuck on 3rd problem but got first two' },
-  { course: 'CS 106B', caption: 'stuck on 3rd problem but got first two' },
-  { course: 'CS 161', caption: 'stuck on 3rd problem but got first two' },
-  { course: 'CS 229', caption: 'stuck on 3rd problem but got first two' },
-  { course: 'AA 247A', caption: 'stuck on 3rd problem but got first two' },
-  { course: 'AA 228', caption: 'stuck on 3rd problem but got first two ' },
-];
+// const data = [
+//   { course: 'CS 107', caption: 'stuck on 3rd problem but got first two' },
+//   { course: 'CS 106B', caption: 'HELP!!! stuck on 3rd problem but got first two' },
+//   { course: 'CS 161', caption: 'stuck on 3rd problem but got first two' },
+//   { course: 'CS 229', caption: 'HELP!!! stuck on 3rd problem but got first two' },
+//   { course: 'AA 247A', caption: 'stuck on 3rd problem but got first two' },
+//   { course: 'AA 228', caption: 'stuck on 3rd problem but got first two' },
+//   { course: 'CS 107', caption: 'stuck on 3rd problem but got first two' },
+//   { course: 'CS 106B', caption: 'stuck on 3rd problem but got first two' },
+//   { course: 'CS 161', caption: 'stuck on 3rd problem but got first two' },
+//   { course: 'CS 229', caption: 'stuck on 3rd problem but got first two' },
+//   { course: 'AA 247A', caption: 'stuck on 3rd problem but got first two' },
+//   { course: 'AA 228', caption: 'stuck on 3rd problem but got first two ' },
+// ];
 
 export default HomeScreen = () => (
   <Stack.Navigator>
